@@ -1,0 +1,66 @@
+#! /usr/bin/env python
+import sys
+import os
+
+from src.builder import PROJECTS_ROOT_PATH
+from src.builder import runGrulp
+
+
+def printHelp():
+    print "**********************"
+    print "Usage: grulp [WorkDir]"
+    print "Examples:"
+    print "  grulp .."
+    print "  grulp icanchangethisdomain/SomeProjectName"
+    print "WorkDir can be absolute, relative to current path, or "
+    print "relative to projects root path e.g.:"
+    print "  grulp github.com\\airutech\\grulp\\example"
+    print "**********************"
+    print "  If you want to change default path to the Projects directory please see the"
+    print "  builder.py file and PROJECTS_ROOT_PATH variable"
+    print "**********************"
+
+
+def Grulp(argv):
+    WorkDirs = []
+    firstRealArgI = 1
+    #try to find the WorkDirs right here
+    if len(argv) > firstRealArgI:
+        pPr = None
+        #try to find the WorkDirs in the specified absolute path
+        if os.path.exists(os.path.join(os.getcwd(),argv[firstRealArgI])):
+            WorkDirs.append(os.path.join(os.getcwd(),argv[firstRealArgI]))
+        #try to find the WorkDirs in the specified relative to current path
+        elif os.path.exists(os.path.join(os.getcwd(),argv[firstRealArgI])):
+            WorkDirs.append(os.path.join(os.getcwd(),argv[firstRealArgI]))
+        #try to find the WorkDirs in the specified path from projects src root
+        elif os.path.exists(os.path.join(PROJECTS_ROOT_PATH,'src',argv[firstRealArgI])):
+            WorkDirs.append(os.path.join(PROJECTS_ROOT_PATH,'src',argv[firstRealArgI]))
+        elif argv[firstRealArgI] == "." or os.path.exists(os.path.join(os.getcwd(),argv[firstRealArgI])):
+            pPr = os.path.join(os.getcwd(),argv[firstRealArgI])
+        elif os.path.exists(os.path.join(PROJECTS_ROOT_PATH,'src',argv[firstRealArgI])):
+            pPr = os.path.join(PROJECTS_ROOT_PATH,'src',argv[firstRealArgI])
+        elif os.path.exists(argv[firstRealArgI]):
+            pPr = argv[firstRealArgI]
+        # if pPr != None:
+        #     for root, dirs, files in os.walk(pPr):
+        #         if os.path.exists(os.path.join(pPr,root,"grulp.json")):
+        #             WorkDirs.append(os.path.join(pPr,root))
+
+    if len(WorkDirs) == 0 and os.path.exists(os.getcwd()):
+        firstRealArgI = 0
+        WorkDirs.append(os.getcwd())
+    elif len(WorkDirs) == 0:
+        print "No "+os.getcwd()
+        print "No "+argv[firstRealArgI]
+        print "No "+os.path.join(os.getcwd(),argv[firstRealArgI])
+        print "No "+os.path.join(PROJECTS_ROOT_PATH,'src',argv[firstRealArgI])
+        print "NO paths found"
+        printHelp()
+        exit()
+
+    for d in WorkDirs:
+        runGrulp(firstRealArgI, argv, d)
+
+if __name__ == "__main__":
+    Grulp(sys.argv)
