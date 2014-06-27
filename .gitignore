@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 
+bower_components
+node_modules
+
 # C extensions
 *.so
 
