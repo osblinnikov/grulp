@@ -12,6 +12,7 @@
     "gulp-clean": "~0.2.2",
     "gulp-coffee": "~1.4.1",
     "gulp-if": "^1.2.0",
+    "gulp-jasmine": "^0.2.0",
     "gulp-util": "^2.2.14",
     "gulp-watch": "~0.4.1",
     "script-loader": "~0.5.1",

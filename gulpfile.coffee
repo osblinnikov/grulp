@@ -8,6 +8,7 @@ clean = require('gulp-clean')
 watch = require('gulp-watch')
 tiny_lr = require('tiny-lr')
 conn_lr = require("connect-livereload")
+jasmine = require('gulp-jasmine')
 httpPort = 4000
 
 gulp.task 'clean', ->
@@ -17,12 +18,14 @@ gulp.task 'clean', ->
 gulp.task 'build-tests', ->
   gulp.src('./test/specs-coffee/*')
     .pipe(gulpif(/[.]coffee$/, coffee()))
-    .pipe(gulp.dest('./test/specs/'));
+    .pipe(gulp.dest('./test/specs/'))
+  gulp.src('./test/specs/*.spec.js')
+    .pipe(jasmine())
 
 gulp.task 'build', ['build-tests'], ->
   gulp.src('./src/*')
     .pipe(gulpif(/[.]coffee$/, coffee()))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest('./dist/'))
 
 gulp.task 'default', ['build'], ->
   servers = createServers(httpPort, 35729)
