@@ -16,7 +16,8 @@
     "gulp-util": "^2.2.14",
     "gulp-watch": "~0.4.1",
     "script-loader": "~0.5.1",
-    "tiny-lr": "0.0.5"
+    "tiny-lr": "0.0.5",
+    "yargs": "^1.2.6"
   },
   "license": "MIT"
 }
