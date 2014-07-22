@@ -1,0 +1,24 @@
+{
+  "name": "com.github.airutech.cnetsjs.template_react",
+  "version": "0.0.0",
+  "authors": ["Airu Technologies Inc. <dev@airutech.com>"],
+  "license": "BSD v2",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "react": "~0.10.0",
+    "es5-shim": "~2.3.0",
+    "bootstrap": "~3.0.3",
+    "jquery": "~2.0.3",
+    "json2": "*",
+    "lodash": "~2.4.1",
+    "fastclick": "~1.0.1",
+    "cnetsjs": "https://github.com/airutech/cnetsjs.git",
+    "sockjs": "https://github.com/myguidingstar/bower-sockjs.git#0.3.4"
+  }
+}
