@@ -21,7 +21,7 @@ gulp.task 'clean', ->
       .pipe(clean())
 
 gulp.task 'build', ->
-  gulp.src('./src/*')
+  gulp.src('./src/**/*')
     .pipe(gulpif(/[.]coffee$/, coffee()))
     .pipe(gulp.dest('./dist/'))
 
