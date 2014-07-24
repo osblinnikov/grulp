@@ -12,6 +12,8 @@ join = os.path.join
 #PLEASE change it if you don't want the standard workspace root folder location
 PROJECTS_ROOT_PATH = os.path.abspath(join(os.path.dirname(__file__), '..', '..', '..', '..', '..'))
 
+DefaultMapBuffer = 'com.github.airutech.cnets.mapBuffer'
+
 def copytree(src, dst, symlinks = False, ignore = None):
     if not os.path.exists(dst):
         os.makedirs(dst)
@@ -88,8 +90,16 @@ def getDomainPath(path):
 def getDependenciesDict(rootDir, working_dir):
     read_data = readJson(os.path.abspath(os.path.join(working_dir,'..','gernet.json')))
     dependenciesList = []
+
+    #in case we are kernel, add default map buffer
+    if len(read_data["blocks"]) > 0 or len(read_data["connection"]["writeTo"]) > 0 or len(read_data["connection"]["readFrom"]) > 0:
+        dependenciesList.append(DefaultMapBuffer)
+
+    #foreach dependency
     for v in read_data["blocks"]+read_data["depends"]:
         dependenciesList.append(v["path"])
+
+
     depDict = dict()
     for v in set(dependenciesList):
         if not depDict.has_key(v):
