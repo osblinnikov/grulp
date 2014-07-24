@@ -30,7 +30,7 @@ gulp.task 'build-tests', ['build'] , ->
     .pipe(gulpif(/[.]coffee$/, coffee()))
     .pipe(gulp.dest('./test/specs/'))
 
-gulp.task 'run-tests', ['build-tests'], ->
+gulp.task 'run-tests', ['build-tests','build'], ->
   if !isTestNoRun
     gulp.src('./test/specs/*.spec.js')
       .pipe(jasmine())
