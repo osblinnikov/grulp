@@ -134,12 +134,21 @@ def executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir, isT
     gulpBin = os.path.abspath(join(os.path.dirname(__file__), '..', 'node_modules','gulp','bin','gulp.js'))
 
     _argv = argv[firstRealArgI+1:]
+    if isTopLevelGulpFile and ('--testlast' in _argv):
+        _argv.reverse()
+        _argv.append("test")
+        _argv.reverse()
+    else:
+        if ('test' in _argv) or ('--testlast' in _argv):
+            if ('test' in _argv): _argv.remove('test')
+            _argv.append("build")
+    if '--testlast' in _argv: _argv.remove('--testlast')
     if '--useconfig' in _argv: _argv.remove('--useconfig')
     _argv.append("--gulpfile "+gulpFile)
     _argv.append("--cwd "+working_dir)
     cmd = gulpBin+" "+(' '.join(_argv))
     # print cmd
-    # print argv
+    # print _argv
     os.system(cmd)
 
 def runGrulp(firstRealArgI, argv, working_dir):

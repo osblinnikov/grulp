@@ -16,7 +16,7 @@ def printHelp():
     print "relative to projects root path e.g.:"
     print "  grulp github.com\\airutech\\grulp\\example"
     print "options:"
-    print "  --useconfig"
+    print "  --useconfig, --testlast"
     print "**********************"
     print "  If you want to change default path to the Projects directory please see the"
     print "  builder.py file and PROJECTS_ROOT_PATH variable"
