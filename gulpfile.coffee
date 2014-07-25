@@ -10,7 +10,6 @@ tiny_lr = require('tiny-lr')
 conn_lr = require("connect-livereload")
 jasmine = require('gulp-jasmine')
 args   = require('yargs').argv
-httpPort = 4000
 
 isTestNoRun = if args.testnorun then true else false
 
@@ -30,13 +29,13 @@ gulp.task 'build-tests', ['build'] , ->
     .pipe(gulpif(/[.]coffee$/, coffee()))
     .pipe(gulp.dest('./test/specs/'))
 
-gulp.task 'run-tests', ['build-tests','build'], ->
+gulp.task 'test', ['build-tests','build'], ->
   if !isTestNoRun
     gulp.src('./test/specs/*.spec.js')
       .pipe(jasmine())
 
-gulp.task 'default', ['build', 'build-tests', 'run-tests'], ->
-  servers = createServers(httpPort, 35729)
+gulp.task 'default', ['build', 'build-tests', 'test'], ->
+  servers = createServers(4000, 35729)
   # When /src changes, fire off a rebuild
   gulp.watch ['./src/**/*','./test/specs-coffee/*'], (evt) -> gulp.run 'build'
   # When /dist changes, tell the browser to reload

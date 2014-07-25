@@ -8,13 +8,15 @@ from src.builder import runGrulp
 
 def printHelp():
     print "**********************"
-    print "Usage: grulp [WorkDir]"
+    print "Usage: grulp [WorkDir] [options]"
     print "Examples:"
     print "  grulp .."
     print "  grulp icanchangethisdomain/SomeProjectName"
     print "WorkDir can be absolute, relative to current path, or "
     print "relative to projects root path e.g.:"
     print "  grulp github.com\\airutech\\grulp\\example"
+    print "options:"
+    print "  --useconfig"
     print "**********************"
     print "  If you want to change default path to the Projects directory please see the"
     print "  builder.py file and PROJECTS_ROOT_PATH variable"

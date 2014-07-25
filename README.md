@@ -20,21 +20,22 @@ grulp [ProjectPath] [grulp task] [list of options]
 ProjectPath can be absolute or relative to current path or
 relative to workspace sources root directory e.g.:
 
-    grulp ../cnetsjs default --testnorun
+    grulp ../cnetsjs default --testnorun --useconfig
 
 Available grulp tasks:
     default
     build
     build-tests
-    run-tests
+    test
     clean
 
 Available grulp options:
     --testnorun    #disable test runs
+    --useconfig    #take gulpfile.js  if available from each working directory of every project
 
 Examples:
 
-    grulp ../cnetsjs default --testnorun
+    grulp ../cnetsjs default --testnorun --useconfig
     grulp ../cnetsjs build-tests
     grulp ../cnetsjs run-tests
     grulp ../cnetsjs clean

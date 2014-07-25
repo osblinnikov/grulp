@@ -116,21 +116,28 @@ def buildSubtrees(builtDepsDict, fullDepDict, firstRealArgI, argv, rootDir):
         #key can be filled on the lower levels of hierarchy, so double-check goes here
         if not builtDepsDict.has_key(k):
             builtDepsDict[k] = True
-            executeGulp(firstRealArgI, argv, os.path.join(rootDir, getDomainPath(k), 'js'), v, rootDir)
+            executeGulp(firstRealArgI, argv, os.path.join(rootDir, getDomainPath(k), 'js'), v, rootDir, False)
 
 def copyDependencies(rootDir, working_dir, topLevelDepsDict):
     for k, v in topLevelDepsDict.items():
         copyanything(os.path.join(rootDir, getDomainPath(k), 'js', 'dist'), os.path.join(working_dir, 'dist'))
 
-def executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir):
+def executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir, isTopLevelGulpFile):
     if not('clean' in argv):
         copyDependencies(rootDir, working_dir, topLevelDepsDict)
-    argv = argv[firstRealArgI+1:]
-    gulpFile = os.path.abspath(join(os.path.dirname(__file__), '..', 'gulpfile.js'))
+
+    gulpFile = os.path.abspath(join(working_dir, 'gulpfile.js'))
+    if not isTopLevelGulpFile or not('--useconfig' in argv) or not os.path.exists(gulpFile):
+        gulpFile = os.path.abspath(join(os.path.dirname(__file__), '..', 'gulpfile.js'))
+
+
     gulpBin = os.path.abspath(join(os.path.dirname(__file__), '..', 'node_modules','gulp','bin','gulp.js'))
-    argv.append("--gulpfile "+gulpFile)
-    argv.append("--cwd "+working_dir)
-    cmd = gulpBin+" "+(' '.join(argv))
+
+    _argv = argv[firstRealArgI+1:]
+    if '--useconfig' in _argv: _argv.remove('--useconfig')
+    _argv.append("--gulpfile "+gulpFile)
+    _argv.append("--cwd "+working_dir)
+    cmd = gulpBin+" "+(' '.join(_argv))
     # print cmd
     # print argv
     os.system(cmd)
@@ -141,6 +148,6 @@ def runGrulp(firstRealArgI, argv, working_dir):
 
     topLevelDepsDict = getDependenciesDict(rootDir, working_dir)
     buildSubtrees(dict(), topLevelDepsDict, firstRealArgI, argv, rootDir)
-    executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir)
+    executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir, True)
 
 
