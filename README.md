@@ -23,6 +23,7 @@ relative to workspace sources root directory e.g.:
     grulp .. --testlast --useconfig
 
 Available grulp tasks:
+
     default
     build
     build-tests
@@ -30,6 +31,7 @@ Available grulp tasks:
     clean
 
 Available grulp options:
+
     --testlast     #enable test only for selected project
     --useconfig    #take gulpfile.js  if available from each working directory of every project
     
