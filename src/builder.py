@@ -131,7 +131,7 @@ def executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir, isT
         gulpFile = os.path.abspath(join(os.path.dirname(__file__), '..', 'gulpfile.js'))
 
 
-    gulpBin = os.path.abspath(join(os.path.dirname(__file__), '..', 'node_modules','gulp','bin','gulp.js'))
+    gulpBin = "node "+os.path.abspath(join(os.path.dirname(__file__), '..', 'node_modules','gulp','bin','gulp.js'))
 
     _argv = argv[firstRealArgI+1:]
     if ('--testlast' in _argv):
@@ -155,7 +155,8 @@ def runGrulp(firstRealArgI, argv, working_dir):
     rootDir = os.path.abspath(os.path.join(working_dir,getRootPath(read_data["path"])))
 
     topLevelDepsDict = getDependenciesDict(rootDir, working_dir)
-    buildSubtrees(dict(), topLevelDepsDict, firstRealArgI, argv, rootDir)
+    if not ('--runlast' in argv):
+        buildSubtrees(dict(), topLevelDepsDict, firstRealArgI, argv, rootDir)
     executeGulp(firstRealArgI, argv, working_dir, topLevelDepsDict, rootDir, True)
 
 

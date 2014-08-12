@@ -4,7 +4,7 @@ gulpif = require('gulp-if')
 gutil = require('gulp-util')
 express = require('express')
 coffee = require('gulp-coffee')
-clean = require('gulp-clean')
+rimraf = require('gulp-rimraf')
 watch = require('gulp-watch')
 tiny_lr = require('tiny-lr')
 conn_lr = require("connect-livereload")
@@ -15,9 +15,9 @@ isTestNoRun = if args.testnorun then true else false
 
 gulp.task 'clean', ->
   gulp.src('dist', {read: false})
-    .pipe(clean())
+    .pipe(rimraf())
   gulp.src('test/specs', {read: false})
-      .pipe(clean())
+      .pipe(rimraf())
 
 gulp.task 'build', ->
   gulp.src('./src/**/*')

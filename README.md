@@ -20,7 +20,7 @@ grulp [ProjectPath] [grulp task] [list of options]
 ProjectPath can be absolute or relative to current path or
 relative to workspace sources root directory e.g.:
 
-    grulp .. --testlast --useconfig
+    grulp .. --testlast --useconfig --runlast
 
 Available grulp tasks:
 
@@ -34,6 +34,7 @@ Available grulp options:
 
     --testlast     #enable test only for selected project
     --useconfig    #take gulpfile.js  if available from each working directory of every project
+    --runlast      #run tasks only for target project, not dependencies
     
 
 Examples:
